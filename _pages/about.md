@@ -27,7 +27,7 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am a student at the University of Maryland, College Park studying Computer Science and Mathematics, specializing in Machine Learning and Statistics. My interests lie broadly among the fields of machine learning and computer vision, as well as their intersection with healthcare and medicine fields.
+I am a student at the University of Maryland, College Park studying Computer Science and Mathematics, specializing in Machine Learning and Statistics. My interests lie broadly among the fields of machine learning and computer vision, as well as their intersection with the fields of healthcare and medicine.
 
 Check out my [LinkedIn](https://www.linkedin.com/in/saunak-roy/) and [GitHub](https://github.com/saunakroy) to see some of the projects I've developed.
 
