@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'jekyll'
+gem 'ffi', '~> 1.15' # or any other available version
 
 # Core plugins that directly affect site building
 group :jekyll_plugins do
