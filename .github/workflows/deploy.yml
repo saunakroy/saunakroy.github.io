@@ -79,6 +79,11 @@ jobs:
         with:
           python-version: "3.13"
           cache: "pip" # caching pip dependencies
+      - name: Install Jupyter
+        run: |
+          pip3 install jupyter
+      - name: Install Dependencies
+        run: bundle install --jobs 4 --retry 3
       - name: Update _config.yml ⚙️
         uses: fjogeleit/yaml-update-action@main
         with:
