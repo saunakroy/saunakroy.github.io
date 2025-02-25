@@ -172,7 +172,7 @@ kramdown:
 
 # Includes & excludes
 include: ["_pages", "_scripts"]
-excludes:
+exclude:
   - bin/
   - CONTRIBUTING.md
   - CUSTOMIZE.md
@@ -194,6 +194,12 @@ excludes:
   - vendor
   - _pages/blog.md
   - _pages/profiles.md
+  - _pages/news.md
+  - _pages/teaching.md
+  - _pages/publications.md
+  - _pages/repositories.md
+  - _pages/dropdown.md
+  - _pages/cv.md
 keep_files:
   - CNAME
   - .nojekyll
