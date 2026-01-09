@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
-import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import { ReactTyped } from 'react-typed';
 
@@ -17,10 +16,6 @@ const RedirectHandler = () => {
   }, []);
   return null;
 };
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -43,20 +38,20 @@ const navLinks = [
 ];
 
 // Navigation Component
-const Navigation = ({ isDarkMode, activeSection }) => {
+const Navigation = () => {
   const location = useLocation();
   
   return (
-    <header className={`fixed top-0 left-0 right-0 z-10 transition-colors duration-200 ${isDarkMode ? 'bg-[#050d1a]/80 backdrop-blur-sm' : 'bg-[#f0f4f8]/80 backdrop-blur-sm'}`}>
+    <header className="fixed top-0 left-0 right-0 z-10 transition-colors duration-200 bg-black/80 backdrop-blur-sm">
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex justify-center">
-          <div className="bg-gray-500/30 border border-gray-300/30 rounded-xl shadow-md px-6 py-2 backdrop-blur-md mt-2">
+          <div className="bg-white/10 border border-white/20 rounded-xl shadow-md px-6 py-2 backdrop-blur-md mt-2">
             <nav className="relative flex justify-center space-x-8">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`relative font-medium px-2 py-1 transition-colors ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}
+                  className="relative font-medium px-2 py-1 transition-colors text-gray-300 hover:text-white"
                   style={{ zIndex: 1 }}
                 >
                   {link.name}
@@ -79,7 +74,7 @@ const Navigation = ({ isDarkMode, activeSection }) => {
 };
 
 // About Page Component
-const AboutPage = ({ isDarkMode, hasAnimated, setHasAnimated }) => {
+const AboutPage = ({ hasAnimated, setHasAnimated }) => {
   const socialLinks = [
     {
       name: 'Email',
@@ -106,13 +101,11 @@ const AboutPage = ({ isDarkMode, hasAnimated, setHasAnimated }) => {
     },
   ];
 
-  const [showCursor, setShowCursor] = useState(false);
   const [nameTyped, setNameTyped] = useState(false);
 
   useEffect(() => {
     // Only run animation if it hasn't been played before
     if (hasAnimated) {
-      setShowCursor(true);
       setNameTyped(true);
       return;
     }
@@ -120,16 +113,6 @@ const AboutPage = ({ isDarkMode, hasAnimated, setHasAnimated }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      {/* Add the custom CSS for blinking animation */}
-      <style jsx>{`
-        @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
-        }
-        .animate-blink {
-          animation: blink 1s infinite;
-        }
-      `}</style>
       
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
@@ -168,41 +151,11 @@ const AboutPage = ({ isDarkMode, hasAnimated, setHasAnimated }) => {
           >
             <motion.p 
               className="text-lg leading-relaxed"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: nameTyped ? 0.5 : 0 }}
             >
-              {hasAnimated ? (
-                <>
-                  Hi! My name is Saunak Roy, and I'm a junior computer science and mathematics student at the University of Maryland, College Park. I'm interested in the fields of Data Science, Machine Learning, and Computer Vision, as well as their intersection with healthcare/medicine. Click on the Projects tab to check out my diverse skills!
-                  {showCursor && (
-                    <span className="animate-blink text-lg font-bold">|</span>
-                  )}
-                </>
-              ) : (
-                <>
-                  {nameTyped && (
-                    <ReactTyped
-                      strings={[
-                        "Hi! My name is Saunak Roy, and I'm a junior computer science and mathematics student at the University of Maryland, College Park. I'm interested in the fields of Data Science, Machine Learning, and Computer Vision, as well as their intersection with healthcare/medicine. Click on the Projects tab to check out my diverse skills!"
-                      ]}
-                      typeSpeed={2}
-                      backSpeed={0}
-                      backDelay={0}
-                      cursorChar="|"
-                      loop={false}
-                      showCursor={true}
-                      onComplete={() => {
-                        setShowCursor(true);
-                        setHasAnimated(true);
-                      }}
-                    />
-                  )}
-                  {showCursor && (
-                    <span className="animate-blink text-lg font-bold">|</span>
-                  )}
-                </>
-              )}
+              Hi! My name is Saunak Roy, and I'm a junior computer science and mathematics student at the University of Maryland, College Park. I'm interested in the fields of Computer Vision, Machine Learning, and Data Science, as well as their intersection with healthcare/medicine. Click on the Projects tab to check out my diverse skills!
             </motion.p>
           </motion.div>
           <motion.div 
@@ -217,14 +170,10 @@ const AboutPage = ({ isDarkMode, hasAnimated, setHasAnimated }) => {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${
-                  isDarkMode 
-                    ? 'text-gray-300 hover:text-white bg-white/10 hover:bg-white/20' 
-                    : 'text-gray-700 hover:text-gray-900 bg-gray-200 hover:bg-gray-300'
-                } transition-colors duration-200 flex items-center space-x-2 px-4 py-2 rounded-lg text-base`}
+                className="text-gray-300 hover:text-white bg-white/10 hover:bg-white/20 transition-colors duration-200 flex items-center space-x-2 px-4 py-2 rounded-lg text-base"
                 variants={fadeInUp}
               >
-                <span className={isDarkMode ? 'text-white' : 'text-gray-900'}>{item.icon}</span>
+                <span className="text-white">{item.icon}</span>
                 <span>{item.name}</span>
               </motion.a>
             ))}
@@ -248,8 +197,14 @@ const AboutPage = ({ isDarkMode, hasAnimated, setHasAnimated }) => {
 };
 
 // Projects Page Component
-const ProjectsPage = ({ isDarkMode }) => {
+const ProjectsPage = () => {
   const projects = [
+    {
+      title: "3D Gaussian Splatting for Novel View Synthesis",
+      description: "Project for ML Capstone: Explored improving the quality of rendered views in 3DGS while having sparse input views through diffusion models and monocular depth cues.",
+      technologies: ["Python", "PyTorch", "CUDA", "GCP", "DepthAnythingV2", "Qwen-Image-Edit", "gsplat", "Nano Banana Pro", "Colmap", "ControlNet", "Stable Diffusion"],
+      link: "https://github.com/Baozpy/CMSC473_3D_Gaussian"
+    },
     {
       title: "Brain Tumor Classification",
       description: "Developed a custom CNN architecture and utilized transfer learning models like ResNet to classify MRI scans of brain tumors. Achieved an F1 score of 0.96 through data augmentation and regularization techniques. This project served as an introduction to computer vision and image classification fundamentals.",
@@ -276,7 +231,7 @@ const ProjectsPage = ({ isDarkMode }) => {
     },
     {
       title: "Personal Portfolio Website",
-      description: "Designed and developed a modern, responsive portfolio website showcasing my projects and skills. Features include smooth animations using Framer Motion, dark/light theme toggle, and a clean, professional design. Built with React and modern web technologies for optimal performance and user experience.",
+      description: "Designed and developed a modern, responsive portfolio website showcasing my projects and skills. Features include smooth animations using Framer Motion and a clean, professional design. Built with React and modern web technologies for optimal performance and user experience.",
       technologies: ["React", "JavaScript", "Tailwind CSS", "Framer Motion"],
       link: "https://saunakroy.github.io"
     }
@@ -284,8 +239,8 @@ const ProjectsPage = ({ isDarkMode }) => {
 
   return (
     <div className="pt-20">
-      <h2 className={`text-3xl font-bold mb-8 text-center ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Projects</h2>
-      <div className={`rounded-xl ${ isDarkMode ? 'bg-white/[0.05]' : 'bg-white shadow-lg' } p-6`}>
+      <h2 className="text-3xl font-bold mb-8 text-center text-white">Projects</h2>
+      <div className="rounded-xl bg-white/[0.05] p-6">
         <motion.div
           className="flex flex-wrap gap-8"
           variants={staggerContainer}
@@ -295,26 +250,26 @@ const ProjectsPage = ({ isDarkMode }) => {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className={`w-full md:w-[48%] border ${ isDarkMode ? 'border-white/20 hover:bg-white/[0.05]' : 'border-gray-200 hover:bg-blue-50' } rounded-lg p-6 transition-colors flex flex-col`}
+              className="w-full md:w-[48%] border border-white/20 hover:bg-white/[0.05] rounded-lg p-6 transition-colors flex flex-col"
               variants={fadeInUp}
             >
               <div className="flex justify-between items-start mb-2">
-                <h3 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{project.title}</h3>
+                <h3 className="text-xl font-semibold text-white">{project.title}</h3>
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`px-4 py-1.5 rounded transition-colors font-medium ${ isDarkMode ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-blue-700 text-white hover:bg-blue-800' } text-base`}
+                  className="px-4 py-1.5 rounded transition-colors font-medium bg-black text-white hover:bg-gray-900 border border-white/20 hover:border-white/40 text-base"
                 >
                   Link
                 </a>
               </div>
-              <p className={isDarkMode ? 'text-gray-300 mb-4' : 'text-gray-700 mb-4'}>{project.description}</p>
+              <p className="text-gray-300 mb-4">{project.description}</p>
               <div className="flex flex-wrap gap-2 mt-auto">
                 {project.technologies.map((tech, techIndex) => (
                   <span
                     key={techIndex}
-                    className={`px-3 py-1 rounded-full text-sm ${ isDarkMode ? 'bg-blue-900/40' : 'bg-blue-100 text-blue-800' }`}
+                    className="px-3 py-1 rounded-full text-sm bg-black border border-white/20"
                   >
                     {tech}
                   </span>
@@ -329,11 +284,11 @@ const ProjectsPage = ({ isDarkMode }) => {
 };
 
 // Resume Page Component
-const ResumePage = ({ isDarkMode }) => {
+const ResumePage = () => {
   return (
     <div className="pt-20">
-      <h2 className={`text-3xl font-bold mb-8 text-center ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Resume</h2>
-      <div className={`rounded-xl ${ isDarkMode ? 'bg-white/[0.05]' : 'bg-white shadow-lg' } p-6`}>
+      <h2 className="text-3xl font-bold mb-8 text-center text-white">Resume</h2>
+      <div className="rounded-xl bg-white/[0.05] p-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -356,11 +311,10 @@ const ResumePage = ({ isDarkMode }) => {
 
 // Main App Component
 const App = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
-    const bgColor = isDarkMode ? '#050d1a' : '#f0f4f8';
+    const bgColor = '#000000';
     document.documentElement.style.backgroundColor = bgColor;
     document.body.style.backgroundColor = bgColor;
     document.documentElement.style.scrollBehavior = 'smooth';
@@ -369,51 +323,28 @@ const App = () => {
       document.body.style.backgroundColor = '';
       document.documentElement.style.scrollBehavior = '';
     };
-  }, [isDarkMode]);
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  }, []);
 
   return (
     <Router>
       <RedirectHandler />
-      <div className={`min-h-screen ${isDarkMode ? 'bg-[#050d1a] text-white' : 'bg-[#f0f4f8] text-gray-900'} p-4 pb-16 transition-colors duration-200`}>
-        <Navigation isDarkMode={isDarkMode} />
-        
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          onClick={toggleTheme}
-          className={`fixed top-4 right-4 p-2 rounded-lg z-20 ${
-            isDarkMode 
-              ? 'bg-white/10 hover:bg-white/20' 
-              : 'bg-gray-300 hover:bg-gray-400'
-          } transition-colors duration-200`}
-          aria-label="Toggle theme"
-        >
-          {isDarkMode ? (
-            <SunIcon className="h-7 w-7" />
-          ) : (
-            <MoonIcon className="h-7 w-7" />
-          )}
-        </motion.button>
+      <div className="min-h-screen bg-black text-white p-4 pb-16 transition-colors duration-200">
+        <Navigation />
         
         <div className="max-w-5xl mx-auto space-y-14">
           <Routes>
-            <Route path="/" element={<AboutPage isDarkMode={isDarkMode} hasAnimated={hasAnimated} setHasAnimated={setHasAnimated} />} />
-            <Route path="/projects" element={<ProjectsPage isDarkMode={isDarkMode} />} />
-            <Route path="/resume" element={<ResumePage isDarkMode={isDarkMode} />} />
+            <Route path="/" element={<AboutPage hasAnimated={hasAnimated} setHasAnimated={setHasAnimated} />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/resume" element={<ResumePage />} />
           </Routes>
           
           <motion.footer
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className={`text-center py-8 mt-16 border-t ${ isDarkMode ? 'border-white/10' : 'border-gray-200' }`}
+            className="text-center py-8 mt-16 border-t border-white/10"
           >
-            <p className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>© Copyright 2025 Saunak Roy.</p>
+            <p className="text-gray-400">© Copyright 2025 Saunak Roy.</p>
           </motion.footer>
         </div>
       </div>
