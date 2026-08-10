@@ -34,7 +34,6 @@ const staggerContainer = {
 const navLinks = [
   { name: 'About', href: '/' },
   { name: 'Projects', href: '/projects' },
-  { name: 'Resume', href: '/resume' },
 ];
 
 // Navigation Component
@@ -283,31 +282,7 @@ const ProjectsPage = () => {
   );
 };
 
-// Resume Page Component
-const ResumePage = () => {
-  return (
-    <div className="pt-20">
-      <h2 className="text-3xl font-bold mb-8 text-center text-white">Resume</h2>
-      <div className="rounded-xl bg-white/[0.05] p-6">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-4"
-        >
-          <div className="relative w-full" style={{ height: "1300px" }}>
-            <iframe
-              src="/SR_Resume.pdf#view=FitH"
-              className="absolute top-0 left-0 w-full h-full rounded-lg bg-white"
-              style={{ border: "none" }}
-              title="Resume"
-            />
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-};
+// Resume page removed per request
 
 // Main App Component
 const App = () => {
@@ -335,7 +310,6 @@ const App = () => {
           <Routes>
             <Route path="/" element={<AboutPage hasAnimated={hasAnimated} setHasAnimated={setHasAnimated} />} />
             <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/resume" element={<ResumePage />} />
           </Routes>
           
           <motion.footer
